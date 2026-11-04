@@ -1,6 +1,6 @@
 # VEXT-CERT — Moroccan DNSSI 2023 Linux Hardening & Audit Suite
 
-[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/vext-dnssi-hardener/badge)](https://www.bestpractices.dev/)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/16326/badge)](https://www.bestpractices.dev/projects/16326)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Compliance](https://img.shields.io/badge/DNSSI%202023-DGSSI%20Loi%2005--20-blue)](https://vext.ma/trust)
 [![RFC 2350](https://img.shields.io/badge/CSIRT-VEXT--CERT-purple)](https://vext.ma/.well-known/rfc2350.txt)
