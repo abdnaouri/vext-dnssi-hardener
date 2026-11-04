@@ -1,0 +1,54 @@
+---
+# VEXT-CERT — Moroccan DNSSI 2023 & ANSSI BP-028 Linux Hardening Playbook
+- name: Enforce Moroccan Sovereign Security Baseline (DNSSI 2023 Ch. 6 & 7)
+  hosts: all
+  become: yes
+  tasks:
+    - name: Apply Kernel Sysctl Security Baseline
+      ansible.posix.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        state: present
+        sysctl_file: /etc/sysctl.d/99-vext-dnssi.conf
+        reload: yes
+      loop:
+        - { key: 'net.ipv4.ip_forward', value: '0' }
+        - { key: 'net.ipv4.conf.all.send_redirects', value: '0' }
+        - { key: 'net.ipv4.conf.all.accept_source_route', value: '0' }
+        - { key: 'net.ipv4.conf.all.accept_redirects', value: '0' }
+        - { key: 'net.ipv4.conf.all.secure_redirects', value: '0' }
+        - { key: 'net.ipv4.conf.all.log_martians', value: '1' }
+        - { key: 'net.ipv4.icmp_echo_ignore_broadcasts', value: '1' }
+        - { key: 'net.ipv4.icmp_ignore_bogus_error_responses', value: '1' }
+        - { key: 'net.ipv4.tcp_syncookies', value: '1' }
+        - { key: 'net.ipv4.conf.all.rp_filter', value: '1' }
+        - { key: 'fs.suid_dumpable', value: '0' }
+        - { key: 'kernel.randomize_va_space', value: '2' }
+        - { key: 'kernel.kptr_restrict', value: '2' }
+        - { key: 'kernel.dmesg_restrict', value: '1' }
+        - { key: 'fs.protected_hardlinks', value: '1' }
+        - { key: 'fs.protected_symlinks', value: '1' }
+
+    - name: Enforce Robust SSH Server Configuration
+      ansible.builtin.copy:
+        dest: /etc/ssh/sshd_config.d/99-vext-dnssi.conf
+        owner: root
+        group: root
+        mode: '0600'
+        content: |
+          PermitRootLogin no
+          PasswordAuthentication no
+          PermitEmptyPasswords no
+          MaxAuthTries 3
+          ClientAliveInterval 300
+          ClientAliveCountMax 0
+          Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+          MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
+          KexAlgorithms curve25519-sha256,diffie-hellman-group16-sha512
+      notify: Reload SSHD
+
+  handlers:
+    - name: Reload SSHD
+      ansible.builtin.service:
+        name: sshd
+        state: reloaded

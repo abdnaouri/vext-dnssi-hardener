@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur Officiel d'Homologation DNSSI 2023 & Loi 05-20 | VEXT Cybersecurity</title>
+  <meta name="description" content="Évaluez gratuitement la conformité de votre Système d'Information aux 14 chapitres de la DNSSI 2023, à la Loi n° 05-20 et au Décret 2-24-921. Génération instantanée du dossier d'homologation Article 19.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              lime: '#C6FF3A',
+              limeDark: '#9EE02A',
+              dark: '#0A0A0A',
+              card: '#141414',
+              border: '#242424'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @media print {
+      body { background: #ffffff !important; color: #000000 !important; }
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      .card-print { border: 1px solid #ddd !important; background: #fff !important; color: #000 !important; page-break-inside: avoid; }
+      .text-lime-print { color: #166534 !important; font-weight: bold; }
+    }
+    .print-only { display: none; }
+    /* Air-gap / Offline CSS Fallbacks in case external CDN is restricted */
+    body { background-color: #000000; color: #f5f5f5; font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    .bg-black { background-color: #000000; }
+    .text-white { color: #ffffff; }
+    .text-neutral-300 { color: #d4d4d4; }
+    .text-neutral-400 { color: #a3a3a3; }
+    .text-neutral-500 { color: #737373; }
+    input[type="range"]::-webkit-slider-thumb { background-color: #C6FF3A; cursor: pointer; }
+  </style>
+</head>
+<body class="bg-black text-neutral-100 min-h-screen font-sans antialiased selection:bg-[#C6FF3A] selection:text-black">
+
+  <!-- Sovereign Header & Authority Banner -->
+  <header class="border-b border-[#242424] bg-[#0A0A0A]/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <a href="/" class="flex items-center space-x-2 group">
+          <div class="w-8 h-8 rounded-lg bg-[#C6FF3A] flex items-center justify-center font-bold text-black text-lg tracking-tighter">
+            V
+          </div>
+          <span class="text-xl font-bold tracking-tight text-white group-hover:text-[#C6FF3A] transition">vext<span class="text-[#C6FF3A]">.ma</span></span>
+        </a>
+        <span class="text-neutral-500">|</span>
+        <span class="text-xs uppercase tracking-widest font-semibold text-[#C6FF3A] bg-[#C6FF3A]/10 px-2.5 py-1 rounded-full border border-[#C6FF3A]/20">
+          VEXT-CERT · Homologation Loi 05-20
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3 no-print">
+        <a href="/security" class="text-xs text-neutral-400 hover:text-white transition">Charte RFC 2350</a>
+        <span class="text-neutral-700">·</span>
+        <a href="/compliance" class="text-xs text-neutral-400 hover:text-white transition">Piliers DGSSI</a>
+        <span class="text-neutral-700">·</span>
+        <a href="/verify-audit.html" class="text-xs text-[#C6FF3A] hover:underline transition">Vérifier Attestation</a>
+        <button onclick="window.print()" class="text-xs font-medium bg-[#1F1F1F] hover:bg-[#2A2A2A] text-neutral-200 border border-neutral-700 px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+          Imprimer le Dossier
+        </button>
+        <button onclick="exportMarkdownReport()" class="text-xs font-semibold bg-[#C6FF3A] hover:bg-[#9EE02A] text-black px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 transition shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          Exporter (.md)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero & Title Section -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="mb-10 text-center sm:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 mb-3 bg-[#141414] px-3 py-1 rounded-md border border-[#242424]">
+          <span class="w-2 h-2 rounded-full bg-[#C6FF3A] animate-pulse"></span>
+          Conforme DNSSI 2023 · Loi 05-20 (Art. 19) · Décrets 2-21-406 & 2-24-921
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+          Portail National d'Auto-Évaluation <br class="hidden sm:inline" />
+          <span class="bg-gradient-to-r from-[#C6FF3A] via-[#E7FFB0] to-[#C6FF3A] bg-clip-text text-transparent">
+            DNSSI 2023 & Homologation Souveraine
+          </span>
+        </h1>
+        <p class="mt-3 text-neutral-400 text-sm sm:text-base leading-relaxed">
+          Diagnostic légal et technique en 28 contrôles exhaustifs couvrant les 14 chapitres de la Directive Nationale de Sécurité de la DGSSI. Déterminez votre éligibilité à l'homologation préalable obligatoire avant mise en production (Article 19).
+        </p>
+      </div>
+
+      <!-- Legal Status Stamp -->
+      <div class="bg-[#141414] border border-[#242424] rounded-2xl p-4 sm:p-5 flex flex-col gap-2 min-w-[280px]">
+        <div class="text-xs text-neutral-400 font-mono flex items-center justify-between">
+          <span>STATUT JURIDIQUE</span>
+          <span class="text-emerald-400 font-semibold">LOI 05-20</span>
+        </div>
+        <div class="text-xs text-neutral-300">
+          Sanction pénale encourue en cas de mise en service sans homologation :
+          <span class="text-rose-400 font-bold block mt-1">Article 49 (Amendes & Peines d'emprisonnement)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Scoring Cockpit & Classification Dashboard -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">
+      <!-- Sensitivity Matrix C/I/D -->
+      <div class="bg-[#141414] border border-[#242424] rounded-2xl p-5 lg:col-span-1 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono uppercase tracking-wider text-neutral-400">Classification C · I · D</span>
+            <span id="classification-badge" class="text-xs font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">C2 · I2 · D2</span>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-xs text-neutral-300 mb-1">
+                <span>Confidentialité (C) :</span>
+                <span id="c-level-label" class="font-mono text-[#C6FF3A]">C2 - Interne</span>
+              </div>
+              <input type="range" min="1" max="4" value="2" id="range-c" oninput="updateClassification()" class="w-full accent-[#C6FF3A] bg-[#242424] h-1.5 rounded-lg appearance-none cursor-pointer">
+              <div class="flex justify-between text-[10px] text-neutral-500 mt-1">
+                <span>C1 Public</span><span>C2 Interne</span><span>C3 Confidentiel</span><span>C4 Secret</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-neutral-300 mb-1">
+                <span>Intégrité (I) :</span>
+                <span id="i-level-label" class="font-mono text-[#C6FF3A]">I2 - Modérée</span>
+              </div>
+              <input type="range" min="1" max="4" value="2" id="range-i" oninput="updateClassification()" class="w-full accent-[#C6FF3A] bg-[#242424] h-1.5 rounded-lg appearance-none cursor-pointer">
+              <div class="flex justify-between text-[10px] text-neutral-500 mt-1">
+                <span>I1 Faible</span><span>I2 Modérée</span><span>I3 Élevée</span><span>I4 Critique</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-neutral-300 mb-1">
+                <span>Disponibilité (D) :</span>
+                <span id="d-level-label" class="font-mono text-[#C6FF3A]">D2 - Important</span>
+              </div>
+              <input type="range" min="1" max="4" value="2" id="range-d" oninput="updateClassification()" class="w-full accent-[#C6FF3A] bg-[#242424] h-1.5 rounded-lg appearance-none cursor-pointer">
+              <div class="flex justify-between text-[10px] text-neutral-500 mt-1">
+                <span>D1 Standard</span><span>D2 Important</span><span>D3 Haute Disp.</span><span>D4 Vitale</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-[#242424] text-xs text-neutral-400">
+          Système qualifié : <span id="system-qualification" class="font-bold text-white">Sensible (Décret 2-21-406)</span>
+        </div>
+      </div>
+
+      <!-- Compliance Score Widget -->
+      <div class="bg-[#141414] border border-[#242424] rounded-2xl p-5 lg:col-span-1 flex flex-col justify-between text-center sm:text-left">
+        <span class="text-xs font-mono uppercase tracking-wider text-neutral-400">Score de Conformité DNSSI</span>
+        <div class="my-3 flex items-center justify-center">
+          <div class="relative w-28 h-28 flex items-center justify-center">
+            <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+              <path class="text-neutral-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path id="score-circle" class="text-[#C6FF3A] transition-all duration-500 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+            <div class="absolute flex flex-col items-center">
+              <span id="score-text" class="text-3xl font-black text-white">0%</span>
+              <span class="text-[10px] text-neutral-400 font-mono">CONFORME</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-xs text-neutral-400 text-center">
+          <span id="answered-count" class="font-bold text-white">0</span> / 28 contrôles évalués
+        </div>
+      </div>
+
+      <!-- Homologation Status Result -->
+      <div class="bg-[#141414] border border-[#242424] rounded-2xl p-5 lg:col-span-2 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-mono uppercase tracking-wider text-neutral-400">Avis d'Homologation (Article 19)</span>
+            <span class="text-xs text-neutral-500 font-mono">DGSSI COMMISSION</span>
+          </div>
+          <div id="status-card" class="p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-200 mt-2 transition-all">
+            <div class="flex items-start gap-3">
+              <div id="status-icon" class="text-xl">⚠️</div>
+              <div>
+                <h4 id="status-title" class="font-bold text-base text-amber-300">Évaluation en cours...</h4>
+                <p id="status-desc" class="text-xs mt-1 text-amber-200/80 leading-relaxed">
+                  Veuillez renseigner les 28 contrôles ci-dessous pour calculer l'éligibilité légale du système à la décision d'homologation DGSSI.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-[#242424] flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-400">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Audit PASSI VEXT requis pour dossier officiel</span>
+          </div>
+          <a href="/contact" class="text-[#C6FF3A] hover:underline font-medium">Mandater VEXT-CERT &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Filter by Chapter / Search -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-[#242424] no-print">
+      <div class="flex items-center gap-2 text-sm text-neutral-300">
+        <span class="font-semibold text-white">Les 14 Chapitres DNSSI 2023</span>
+        <span class="text-xs text-neutral-500">(Sélectionnez pour filtrer ou faites défiler)</span>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="setAllAnswers(true)" class="text-xs px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded border border-neutral-700 transition">Tout cocher conforme (Simulation)</button>
+        <button onclick="resetAnswers()" class="text-xs px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded border border-neutral-700 transition">Réinitialiser</button>
+      </div>
+    </div>
+
+    <!-- 28 Questions Container -->
+    <div id="questions-container" class="space-y-6">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- Executive Action Plan (Shown after assessment) -->
+    <div id="action-plan-section" class="mt-16 bg-[#141414] border border-[#242424] rounded-2xl p-6 sm:p-8 card-print">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-6 border-b border-[#242424] gap-4">
+        <div>
+          <span class="text-xs uppercase font-mono text-[#C6FF3A] tracking-wider">LIVRABLE EXÉCUTIF</span>
+          <h2 class="text-2xl font-bold text-white mt-1">Plan Directeur de Remédiation & Dossier d'Homologation</h2>
+          <p class="text-sm text-neutral-400 mt-1">Généré sous le sceau de conformité VEXT Casablanca (ICE 004061591000005)</p>
+        </div>
+        <div class="flex gap-3 no-print">
+          <button onclick="window.print()" class="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-semibold rounded-lg border border-neutral-700 transition">
+            Imprimer PDF
+          </button>
+          <button onclick="exportMarkdownReport()" class="px-4 py-2 bg-[#C6FF3A] hover:bg-[#9EE02A] text-black text-xs font-bold rounded-lg transition shadow">
+            Télécharger Markdown
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="p-4 rounded-xl bg-black/40 border border-[#242424]">
+          <div class="text-xs text-neutral-500 font-mono">ORGANISME AUDITÉ</div>
+          <input type="text" id="client-name" placeholder="ex. Banque Centrale Populaire / Ministère X" class="mt-2 w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#C6FF3A]">
+        </div>
+        <div class="p-4 rounded-xl bg-black/40 border border-[#242424]">
+          <div class="text-xs text-neutral-500 font-mono">NOM DU SYSTÈME D'INFORMATION</div>
+          <input type="text" id="system-name" placeholder="ex. Plateforme Monétique Core-Banking" class="mt-2 w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#C6FF3A]">
+        </div>
+        <div class="p-4 rounded-xl bg-black/40 border border-[#242424]">
+          <div class="text-xs text-neutral-500 font-mono">RSSI OU DSI DÉCLARANT</div>
+          <input type="text" id="auditor-name" placeholder="ex. M. le RSSI Délégué" class="mt-2 w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#C6FF3A]">
+        </div>
+      </div>
+
+      <!-- Remediation Gap Table -->
+      <div>
+        <h3 class="text-base font-semibold text-white mb-4 flex items-center justify-between">
+          <span>Écarts Critiques & Feuille de Route Prioritaire (90 Jours)</span>
+          <span id="gaps-count" class="text-xs font-mono text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20">0 Écarts</span>
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-[#242424] text-neutral-400 font-mono">
+                <th class="py-3 px-3">RÉF.</th>
+                <th class="py-3 px-3">CHAPITRE DNSSI</th>
+                <th class="py-3 px-3">CONTRÔLE MANQUANT</th>
+                <th class="py-3 px-3">BASE LÉGALE</th>
+                <th class="py-3 px-3">RECOMMANDATION VEXT-CERT</th>
+              </tr>
+            </thead>
+            <tbody id="gaps-table-body" class="divide-y divide-[#1F1F1F]">
+              <!-- Injected by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Signature & Seal Box -->
+      <div class="mt-10 pt-6 border-t border-[#242424] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div class="text-xs text-neutral-400 leading-relaxed max-w-lg">
+          <p class="font-semibold text-neutral-300">Avertissement Légal :</p>
+          Ce rapport est un pré-audit préliminaire indicatif. Conformément au Décret n° 2-21-406 pris pour l'application de la Loi n° 05-20, la décision formelle d'homologation requiert la remise d'un rapport d'audit contradictoire réalisé par un Prestataire d'Audit de la Sécurité des Systèmes d'Information (PASSI) qualifié par la DGSSI.
+        </div>
+        <div class="border border-neutral-700 rounded-xl p-4 bg-neutral-900 text-center min-w-[220px]">
+          <div class="text-[10px] text-neutral-500 font-mono uppercase">Visa VEXT Casablanca</div>
+          <div class="text-sm font-bold text-white mt-1">VEXT-CERT AUTHORITY</div>
+          <div class="text-[10px] text-[#C6FF3A] font-mono mt-1">SCEAU CRYPTOGRAPHIQUE SHA-256</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-[#242424] bg-[#0A0A0A] py-8 text-center text-xs text-neutral-500">
+    <div class="max-w-7xl mx-auto px-4">
+      <p>© 2026 VEXT Cybersecurity (vext.ma) · Best Partner · Casablanca, Maroc · ICE 004061591000005.</p>
+      <p class="mt-1">Plateforme souveraine hébergée 100% au Maroc · Conforme Loi 05-20 (DGSSI) & Loi 09-08 (CNDP).</p>
+    </div>
+  </footer>
+
+  <!-- Assessment Data & Logic Engine -->
+  <script>
+    const DNSSI_QUESTIONS = [
+      // Chapitre 1: Gouvernance & PSSI
+      {
+        id: 1,
+        chapter: 1,
+        chapterName: "1. Gouvernance & Politique de Sécurité (PSSI)",
+        title: "Validation formelle de la PSSI par la Direction Générale",
+        desc: "L'entité dispose-t-elle d'une Politique de Sécurité des SI (PSSI) écrite, validée par la Direction Générale, révisée annuellement et diffusée à l'ensemble du personnel ?",
+        legal: "Loi 05-20 Art. 6 & Décret 2-21-406 Art. 4",
+        weight: 3,
+        remediation: "Formaliser et faire approuver la PSSI en comité de direction avec engagement écrit des directeurs métiers."
+      },
+      {
+        id: 2,
+        chapter: 1,
+        chapterName: "1. Gouvernance & Politique de Sécurité (PSSI)",
+        title: "Désignation formelle d'un RSSI et notification à la DGSSI",
+        desc: "Un Responsable de la Sécurité des SI (RSSI) a-t-il été formellement nommé avec lettre de mission, indépendance hiérarchique et notifié à la DGSSI ?",
+        legal: "DNSSI Ch. 1.2 & Décret 2-21-406 Art. 7",
+        weight: 3,
+        remediation: "Émettre l'acte de nomination du RSSI rattaché directement à la Direction Générale et transmettre la fiche à la DGSSI."
+      },
+      // Chapitre 2: Organisation de la Sécurité
+      {
+        id: 3,
+        chapter: 2,
+        chapterName: "2. Organisation de la Sécurité & Rôles",
+        title: "Tenue périodique du Comité Stratégique SSI",
+        desc: "Un Comité SSI réunissant Direction Générale, DSI, RSSI et métiers se réunit-il au moins deux fois par an avec compte-rendu formalisé ?",
+        legal: "DNSSI Ch. 2.1",
+        weight: 2,
+        remediation: "Instituer le calendrier semestriel du Comité SSI et archiver les procès-verbaux de gouvernance."
+      },
+      {
+        id: 4,
+        chapter: 2,
+        chapterName: "2. Organisation de la Sécurité & Rôles",
+        title: "Séparation des tâches et responsabilités (SoD)",
+        desc: "Les fonctions d'exploitation, de développement et d'administration de sécurité sont-elles strictement dissociées sans cumul de privilèges incompatibles ?",
+        legal: "DNSSI Ch. 2.3 & Bank Al-Maghrib 3/W/16",
+        weight: 2,
+        remediation: "Mettre en œuvre une matrice d'incompatibilité des fonctions et supprimer les accès administrateurs aux développeurs."
+      },
+      // Chapitre 3: Gestion des Actifs & Classification
+      {
+        id: 5,
+        chapter: 3,
+        chapterName: "3. Gestion des Actifs & Classification",
+        title: "Inventaire et cartographie exhaustive des actifs",
+        desc: "Tous les actifs matériels, logiciels, bases de données et flux d'interconnexion sont-ils répertoriés dans une CMDB ou cartographie maintenue ?",
+        legal: "Loi 05-20 Art. 9 & DNSSI Ch. 3.1",
+        weight: 3,
+        remediation: "Déployer un inventaire automatisé des actifs physiques et logiques avec propriétaire désigné pour chaque ressource."
+      },
+      {
+        id: 6,
+        chapter: 3,
+        chapterName: "3. Gestion des Actifs & Classification",
+        title: "Classification formelle des données selon la grille C/I/D",
+        desc: "Les données et applications sont-elles catégorisées selon l'échelle C1-C4 (Confidentialité), I1-I4 (Intégrité) et D1-D4 (Disponibilité) ?",
+        legal: "DNSSI Ch. 3.2 & Guide DGSSI Classification",
+        weight: 3,
+        remediation: "Appliquer la classification C/I/D à chaque base de données et labelliser les documents sensibles."
+      },
+      // Chapitre 4: Sécurité des Ressources Humaines
+      {
+        id: 7,
+        chapter: 4,
+        chapterName: "4. Sécurité des Ressources Humaines",
+        title: "Clauses de confidentialité et Charte informatique signées",
+        desc: "Tout collaborateur (CDI, CDD, stagiaire) signe-t-il un engagement de confidentialité et une charte informatique annexée au règlement intérieur ?",
+        legal: "Loi 09-08 & DNSSI Ch. 4.1",
+        weight: 2,
+        remediation: "Annexer la charte d'usage des SI au contrat de travail et faire signer les avenants de confidentialité."
+      },
+      {
+        id: 8,
+        chapter: 4,
+        chapterName: "4. Sécurité des Ressources Humaines",
+        title: "Programme régulier de sensibilisation et tests de phishing",
+        desc: "Des campagnes de sensibilisation à la cybersécurité et des simulations d'ingénierie sociale sont-elles menées au moins une fois par an ?",
+        legal: "DNSSI Ch. 4.2",
+        weight: 2,
+        remediation: "Déployer un parcours e-learning obligatoire pour les nouveaux arrivants avec exercices réguliers de simulation de phishing."
+      },
+      // Chapitre 5: Sécurité Physique & Environnementale
+      {
+        id: 9,
+        chapter: 5,
+        chapterName: "5. Sécurité Physique & Environnementale",
+        title: "Contrôle d'accès strict et vidéosurveillance des salles serveurs",
+        desc: "L'accès aux datacenters et locaux techniques est-il restreint par badge nominatif/biométrie, journalisé et sous vidéosurveillance continue ?",
+        legal: "DNSSI Ch. 5.1 & Décret 2-21-406",
+        weight: 2,
+        remediation: "Restreindre la liste des personnes autorisées aux salles serveurs et conserver les journaux d'accès 1 an minimum."
+      },
+      {
+        id: 10,
+        chapter: 5,
+        chapterName: "5. Sécurité Physique & Environnementale",
+        title: "Redondance électrique et extinction automatique d'incendie",
+        desc: "Les locaux techniques sont-ils équipés d'onduleurs redondants (N+1), de groupes électrogènes testés et de détection incendie à gaz inerte ?",
+        legal: "DNSSI Ch. 5.2",
+        weight: 2,
+        remediation: "Planifier des tests de bascule sur groupe électrogène trimestriels et vérifier la certification du système gaz."
+      },
+      // Chapitre 6: Gestion des Exploitations & Télécommunications
+      {
+        id: 11,
+        chapter: 6,
+        chapterName: "6. Gestion des Exploitations & Télécommunications",
+        title: "Stratégie de sauvegarde 3-2-1 et tests de restauration",
+        desc: "Les sauvegardes respectent-elles la règle 3 copies, 2 supports différents dont 1 hors-site immuable (WORM/air-gap) avec tests réguliers ?",
+        legal: "DNSSI Ch. 6.4 & Décret 2-21-406 Art. 12",
+        weight: 3,
+        remediation: "Mettre en place des sauvegardes déconnectées immuables et consigner les tests de restauration semestriels dans un registre."
+      },
+      {
+        id: 12,
+        chapter: 6,
+        chapterName: "6. Gestion des Exploitations & Télécommunications",
+        title: "Durcissement des OS selon les guides ANSSI / DGSSI BP-028",
+        desc: "Les serveurs de production subissent-ils un durcissement (désactivation des services inutiles, sysctl, SSH sécurisé) documenté ?",
+        legal: "DNSSI Ch. 6.2 & Guide DGSSI Durcissement",
+        weight: 3,
+        remediation: "Déployer le script d'automatisation 'vext_dnssi_linux_hardener.sh' sur l'ensemble du parc Linux de production."
+      },
+      // Chapitre 7: Contrôle d'Accès Logique & IAM
+      {
+        id: 13,
+        chapter: 7,
+        chapterName: "7. Contrôle d'Accès Logique & IAM",
+        title: "Authentification multifacteur (MFA) systématique",
+        desc: "Le MFA est-il obligatoire pour tout accès distant (VPN, portail web) et pour tous les accès aux consoles d'administration ?",
+        legal: "DNSSI Ch. 7.2 & Décret 2-21-406",
+        weight: 3,
+        remediation: "Proscrire l'authentification simple par mot de passe et imposer des clés FIDO2 ou applications d'authentification TOTP."
+      },
+      {
+        id: 14,
+        chapter: 7,
+        chapterName: "7. Contrôle d'Accès Logique & IAM",
+        title: "Gestion des accès à privilèges (PAM) et revue des habilitations",
+        desc: "Les comptes administrateurs passent-ils par un bastion PAM avec enregistrement de session et les droits sont-ils revus trimestriellement ?",
+        legal: "DNSSI Ch. 7.3 & Bank Al-Maghrib",
+        weight: 3,
+        remediation: "Installer un bastion de gestion des accès à privilèges et formaliser la revue trimestrielle des habilitations."
+      },
+      // Chapitre 8: Acquisition, Développement & Maintenance des SI
+      {
+        id: 15,
+        chapter: 8,
+        chapterName: "8. Acquisition, Développement & Maintenance",
+        title: "Cycle de développement sécurisé (SSDLC) conforme OWASP ASVS",
+        desc: "Les applications métiers intègrent-elles les exigences de sécurité dès la conception (Privacy by Design) et le standard OWASP ASVS v4 ?",
+        legal: "DNSSI Ch. 8.1 & Loi 05-20 Art. 19",
+        weight: 2,
+        remediation: "Former les équipes de développement aux exigences OWASP ASVS niveau 2/3 et documenter les revues d'architecture de sécurité."
+      },
+      {
+        id: 16,
+        chapter: 8,
+        chapterName: "8. Acquisition, Développement & Maintenance",
+        title: "Analyse automatisée du code (SAST) et des dépendances (SCA)",
+        desc: "Des scans SAST et SCA sont-ils intégrés dans les pipelines CI/CD bloquant la mise en production en cas de vulnérabilité critique ?",
+        legal: "DNSSI Ch. 8.3",
+        weight: 2,
+        remediation: "Automatiser l'analyse de vulnérabilités dans le pipeline Git et interdire le déploiement sans scan préalable propre."
+      },
+      // Chapitre 9: Gestion des Incidents de Sécurité & Notification maCERT
+      {
+        id: 17,
+        chapter: 9,
+        chapterName: "9. Gestion des Incidents & maCERT",
+        title: "Procédure d'escalade et notification à la DGSSI sous 48h",
+        desc: "L'entité dispose-t-elle d'une procédure formalisée de notification des incidents majeurs à maCERT (incident@macert.gov.ma) sous 48h ?",
+        legal: "Loi 05-20 Art. 8 & Décret 2-21-406 Art. 10",
+        weight: 3,
+        remediation: "Rédiger et diffuser le playbook de crise incluant le gabarit officiel de déclaration d'incident au maCERT."
+      },
+      {
+        id: 18,
+        chapter: 9,
+        chapterName: "9. Gestion des Incidents & maCERT",
+        title: "Surveillance SOC 24/7 et conservation des logs d'audit",
+        desc: "Les événements de sécurité sont-ils centralisés dans un SIEM surveillé 24/7 avec conservation légale des traces d'au moins 6 mois au Maroc ?",
+        legal: "Loi 05-20 Art. 10 & 25 & Décret 2-24-804",
+        weight: 3,
+        remediation: "Raccorder les sources de logs à un SOC souverain (VEXT-SOC) avec rétention immuable d'un an."
+      },
+      // Chapitre 10: Continuité d'Activité & Résilience
+      {
+        id: 19,
+        chapter: 10,
+        chapterName: "10. Continuité d'Activité & Résilience",
+        title: "Plan de Continuité (PCA) et de Reprise d'Activité (PRA) formalisé",
+        desc: "Un PCA/PRA définissant les RTO (durée max d'interruption) et RPO (perte max de données) admissibles est-il validé pour le système ?",
+        legal: "Loi 05-20 Art. 12 & DNSSI Ch. 10.1",
+        weight: 3,
+        remediation: "Documenter les procédures de secours opérationnel et de bascule technique vers le site secondaire."
+      },
+      {
+        id: 20,
+        chapter: 10,
+        chapterName: "10. Continuité d'Activité & Résilience",
+        title: "Exercice annuel de simulation de crise et bascule PRA",
+        desc: "Un test grandeur réelle de reprise d'activité sur site de secours est-il opéré et documenté au moins une fois par an ?",
+        legal: "DNSSI Ch. 10.2 & BAM 3/W/16",
+        weight: 2,
+        remediation: "Conduire un exercice annuel de simulation d'attaque ransomware avec bascule effective de charge."
+      },
+      // Chapitre 11: Conformité Réglementaire & Audits PASSI
+      {
+        id: 21,
+        chapter: 11,
+        chapterName: "11. Conformité & Audits PASSI",
+        title: "Audit de sécurité annuel par un prestataire qualifié PASSI",
+        desc: "Le système d'information fait-il l'objet d'un audit de sécurité obligatoire réalisé par un PASSI qualifié DGSSI selon la Loi 05-20 ?",
+        legal: "Loi 05-20 Art. 20 & Décret 2-21-406 Art. 18",
+        weight: 3,
+        remediation: "Contractualiser immédiatement un audit PASSI (6 domaines) auprès d'un prestataire habilité tel que VEXT Casablanca."
+      },
+      {
+        id: 22,
+        chapter: 11,
+        chapterName: "11. Conformité & Audits PASSI",
+        title: "Plan d'action et remédiation des vulnérabilités critiques sous 30j",
+        desc: "Les écarts et vulnérabilités identifiés lors des audits font-ils l'objet d'un suivi formel avec correction des failles critiques sous 30 jours ?",
+        legal: "DNSSI Ch. 11.2",
+        weight: 2,
+        remediation: "Créer un registre centralisé de remédiation piloté par le RSSI avec arbitrage hebdomadaire des corrections."
+      },
+      // Chapitre 12: Sécurité des Relations Tiers & Fournisseurs
+      {
+        id: 23,
+        chapter: 12,
+        chapterName: "12. Relations Tiers & Fournisseurs",
+        title: "Clauses contractuelles de sécurité et interdiction de sous-traitance",
+        desc: "Les contrats avec les prestataires informatiques intègrent-ils le droit d'audit, les clauses de confidentialité et l'agrément préalable de tout sous-traitant ?",
+        legal: "DNSSI Ch. 12.1 & Loi 09-08",
+        weight: 2,
+        remediation: "Réviser la grille contractuelle achats IT avec intégration de l'annexe de sécurité souveraine VEXT."
+      },
+      {
+        id: 24,
+        chapter: 12,
+        chapterName: "12. Relations Tiers & Fournisseurs",
+        title: "Évaluation des risques de la chaîne d'approvisionnement (TPRM)",
+        desc: "Une revue de sécurité cyber préalable est-elle exigée avant de retenir un éditeur de logiciel ou prestataire infogérance ?",
+        legal: "DNSSI Ch. 12.2 & Loi 05-20 Art. 25",
+        weight: 2,
+        remediation: "Mettre en place un questionnaire de conformité tiers et interdire l'usage de logiciels non maintenus."
+      },
+      // Chapitre 13: Cryptographie & Gestion des Clés
+      {
+        id: 25,
+        chapter: 13,
+        chapterName: "13. Cryptographie & Gestion des Clés",
+        title: "Chiffrement des données sensibles au repos et en transit",
+        desc: "Les données sensibles sont-elles chiffrées au repos (AES-256) et en transit (TLS 1.3 exclusif) avec algorithmes robustes reconnus par la DGSSI ?",
+        legal: "DNSSI Ch. 13.1 & Décret 2-21-406 Art. 13",
+        weight: 3,
+        remediation: "Activer le chiffrement LUKS2 sur les disques et désactiver impérativement SSLv3, TLS 1.0 et TLS 1.1 sur les serveurs web."
+      },
+      {
+        id: 26,
+        chapter: 13,
+        chapterName: "13. Cryptographie & Gestion des Clés",
+        title: "Déclaration ANRT et protection des clés privées dans un HSM",
+        desc: "Les dispositifs cryptographiques sont-ils déclarés auprès de l'ANRT et les clés maîtresses sont-elles séquestrées dans un module HSM ?",
+        legal: "Loi 53-05 (Échanges électroniques) & DNSSI Ch. 13.2",
+        weight: 2,
+        remediation: "Vérifier la conformité de la déclaration ANRT pour les équipements de chiffrement et utiliser un HSM qualifié."
+      },
+      // Chapitre 14: Cloud Souverain & Hébergement National
+      {
+        id: 27,
+        chapter: 14,
+        chapterName: "14. Cloud Souverain & Hébergement National",
+        title: "Localisation exclusive des données au Royaume du Maroc",
+        desc: "Les données sensibles et sauvegardes sont-elles physiquement hébergées au Maroc auprès d'un hébergeur qualifié SecCloud Niveau 2 par la DGSSI ?",
+        legal: "Décret 2-24-921 (Cloud Souverain) & Loi 05-20 Art. 2",
+        weight: 3,
+        remediation: "Migrer toute donnée ou traitement situé hors du Maroc vers une infrastructure souveraine marocaine qualifiée."
+      },
+      {
+        id: 28,
+        chapter: 14,
+        chapterName: "14. Cloud Souverain & Hébergement National",
+        title: "Déclaration préalable auprès de la CNDP (Loi 09-08 / DATA-TIKA)",
+        desc: "Les traitements contenant des données à caractère personnel ont-ils fait l'objet d'un récépissé de déclaration ou d'autorisation CNDP préalable ?",
+        legal: "Loi 09-08 (CNDP) & Programme DATA-TIKA",
+        weight: 3,
+        remediation: "Déposer sans délai les dossiers de déclaration de traitement auprès de la CNDP à Rabat."
+      }
+    ];
+
+    // State
+    const answers = {};
+    DNSSI_QUESTIONS.forEach(q => answers[q.id] = null);
+
+    let classification = {
+      c: 2,
+      i: 2,
+      d: 2
+    };
+
+    function renderQuestions() {
+      const container = document.getElementById('questions-container');
+      container.innerHTML = '';
+
+      // Group by chapter
+      const chapters = {};
+      DNSSI_QUESTIONS.forEach(q => {
+        if (!chapters[q.chapter]) {
+          chapters[q.chapter] = {
+            name: q.chapterName,
+            questions: []
+          };
+        }
+        chapters[q.chapter].questions.push(q);
+      });
+
+      Object.keys(chapters).forEach(chId => {
+        const ch = chapters[chId];
+        const groupEl = document.createElement('div');
+        groupEl.className = 'bg-[#141414] border border-[#242424] rounded-2xl p-5 sm:p-6 card-print';
+
+        let questionsHtml = ch.questions.map(q => {
+          const isYes = answers[q.id] === true;
+          const isNo = answers[q.id] === false;
+
+          return `
+            <div class="py-4 border-b border-[#1F1F1F] last:border-0">
+              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                <div class="max-w-2xl">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-[10px] font-mono text-[#C6FF3A] bg-[#C6FF3A]/10 px-2 py-0.5 rounded border border-[#C6FF3A]/20">RÉF ${q.id}</span>
+                    <span class="text-[10px] font-mono text-neutral-400">${q.legal}</span>
+                    <span class="text-[10px] font-mono text-neutral-500">Poids: ${q.weight}/3</span>
+                  </div>
+                  <h4 class="text-sm font-semibold text-white">${q.title}</h4>
+                  <p class="text-xs text-neutral-400 mt-1 leading-relaxed">${q.desc}</p>
+                </div>
+                <div class="flex items-center gap-2 shrink-0 no-print">
+                  <button onclick="setAnswer(${q.id}, true)" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${isYes ? 'bg-emerald-500 text-black shadow' : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'}">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Conforme
+                  </button>
+                  <button onclick="setAnswer(${q.id}, false)" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${isNo ? 'bg-rose-500 text-white shadow' : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'}">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    Non Conforme
+                  </button>
+                </div>
+                <div class="print-only text-xs font-bold ${isYes ? 'text-green-700' : 'text-red-700'}">
+                  ${isYes ? 'CONFORME' : (isNo ? 'NON CONFORME' : 'NON ÉVALUÉ')}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        groupEl.innerHTML = `
+          <div class="flex items-center justify-between pb-3 border-b border-[#242424]">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-white">${ch.name}</h3>
+            <span class="text-xs font-mono text-neutral-500">2 contrôles</span>
+          </div>
+          <div class="divide-y divide-[#1F1F1F]">
+            ${questionsHtml}
+          </div>
+        `;
+        container.appendChild(groupEl);
+      });
+    }
+
+    function setAnswer(id, val) {
+      const scrollPos = window.scrollY;
+      answers[id] = val;
+      renderQuestions();
+      calculateScore();
+      window.scrollTo(0, scrollPos);
+    }
+
+    function setAllAnswers(val) {
+      DNSSI_QUESTIONS.forEach(q => answers[q.id] = val);
+      renderQuestions();
+      calculateScore();
+    }
+
+    function resetAnswers() {
+      DNSSI_QUESTIONS.forEach(q => answers[q.id] = null);
+      classification = { c: 2, i: 2, d: 2 };
+      document.getElementById('range-c').value = 2;
+      document.getElementById('range-i').value = 2;
+      document.getElementById('range-d').value = 2;
+      updateClassification();
+      renderQuestions();
+      calculateScore();
+    }
+
+    function updateClassification() {
+      classification.c = parseInt(document.getElementById('range-c').value);
+      classification.i = parseInt(document.getElementById('range-i').value);
+      classification.d = parseInt(document.getElementById('range-d').value);
+
+      const cLabels = ["", "C1 - Public", "C2 - Interne", "C3 - Confidentiel", "C4 - Secret / Très Secret"];
+      const iLabels = ["", "I1 - Faible", "I2 - Modérée", "I3 - Élevée", "I4 - Critique"];
+      const dLabels = ["", "D1 - Standard", "D2 - Important", "D3 - Haute Disp.", "D4 - Vitale (IIV)"];
+
+      document.getElementById('c-level-label').innerText = cLabels[classification.c];
+      document.getElementById('i-level-label').innerText = iLabels[classification.i];
+      document.getElementById('d-level-label').innerText = dLabels[classification.d];
+      document.getElementById('classification-badge').innerText = `C${classification.c} · I${classification.i} · D${classification.d}`;
+
+      const maxLevel = Math.max(classification.c, classification.i, classification.d);
+      let qual = "Standard";
+      if (maxLevel === 4) {
+        qual = "Infrastructure d'Importance Vitale (IIV - Loi 05-20)";
+      } else if (maxLevel === 3) {
+        qual = "Système d'Information Sensible (Décret 2-21-406)";
+      } else {
+        qual = "Système d'Information Général";
+      }
+      document.getElementById('system-qualification').innerText = qual;
+
+      calculateScore();
+    }
+
+    function calculateScore() {
+      let totalPossible = 0;
+      let earnedPoints = 0;
+      let answeredCount = 0;
+      let confirmedGaps = [];
+      let pendingQuestions = [];
+
+      DNSSI_QUESTIONS.forEach(q => {
+        totalPossible += q.weight;
+        if (answers[q.id] === true) {
+          earnedPoints += q.weight;
+          answeredCount++;
+        } else if (answers[q.id] === false) {
+          answeredCount++;
+          confirmedGaps.push(q);
+        } else {
+          pendingQuestions.push(q);
+        }
+      });
+
+      const scorePercent = totalPossible > 0 ? Math.round((earnedPoints / totalPossible) * 100) : 0;
+      document.getElementById('score-text').innerText = `${scorePercent}%`;
+      document.getElementById('answered-count').innerText = answeredCount;
+
+      // Update circle stroke
+      const circle = document.getElementById('score-circle');
+      circle.setAttribute('stroke-dasharray', `${scorePercent}, 100`);
+
+      // Color scheme based on score
+      if (scorePercent >= 80) {
+        circle.setAttribute('class', 'text-[#C6FF3A] transition-all duration-500 ease-out');
+      } else if (scorePercent >= 50) {
+        circle.setAttribute('class', 'text-amber-400 transition-all duration-500 ease-out');
+      } else {
+        circle.setAttribute('class', 'text-rose-500 transition-all duration-500 ease-out');
+      }
+
+      // Check critical sovereign legal controls
+      const criticalBlockers = [];
+      if (answers[17] !== true) criticalBlockers.push("Notification maCERT sous 48h (Art. 8)");
+      if (answers[21] !== true) criticalBlockers.push("Audit annuel PASSI DGSSI (Art. 20)");
+      if (answers[27] !== true) criticalBlockers.push("Hébergement souverain au Maroc (Décret 2-24-921)");
+      if (answers[28] !== true) criticalBlockers.push("Déclaration CNDP (Loi 09-08)");
+
+      // Status card logic
+      const statusCard = document.getElementById('status-card');
+      const statusTitle = document.getElementById('status-title');
+      const statusDesc = document.getElementById('status-desc');
+      const statusIcon = document.getElementById('status-icon');
+      const maxLevel = Math.max(classification.c, classification.i, classification.d);
+      const isCriticalSystem = maxLevel >= 3;
+
+      if (answeredCount === 0) {
+        statusCard.className = 'p-4 rounded-xl border border-neutral-700 bg-neutral-900/60 text-neutral-300 mt-2';
+        statusIcon.innerText = '📋';
+        statusTitle.innerText = 'Évaluation en attente de saisie';
+        statusTitle.className = 'font-bold text-base text-neutral-300';
+        statusDesc.innerText = 'Renseignez les contrôles pour déterminer la conformité au Décret 2-21-406 et la readiness d\'homologation.';
+      } else if (scorePercent >= 80 && criticalBlockers.length === 0) {
+        statusCard.className = 'p-4 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-emerald-200 mt-2';
+        statusIcon.innerText = '🛡️';
+        statusTitle.innerText = 'PRÊT POUR HOMOLOGATION (Article 19)';
+        statusTitle.className = 'font-bold text-base text-emerald-400';
+        statusDesc.innerText = 'Le système remplit les conditions requises pour soumettre la demande formelle d\'homologation à la commission DGSSI, sous réserve du rapport contradictoire PASSI VEXT.';
+      } else if (scorePercent >= 50 && criticalBlockers.length <= 1) {
+        statusCard.className = 'p-4 rounded-xl border border-amber-500/40 bg-amber-500/10 text-amber-200 mt-2';
+        statusIcon.innerText = '⚠️';
+        statusTitle.innerText = 'ÉCARTS MAJEURS — HOMOLOGATION AVEC RÉSERVES';
+        statusTitle.className = 'font-bold text-base text-amber-400';
+        statusDesc.innerText = `Niveau de sécurité partiel (${scorePercent}%). Risque de rejet ou réserves contraignantes par la DGSSI. Remédiation recommandée sous 60 jours.`;
+      } else {
+        statusCard.className = 'p-4 rounded-xl border border-rose-500/40 bg-rose-500/10 text-rose-200 mt-2';
+        statusIcon.innerText = '🚨';
+        if (isCriticalSystem) {
+          statusTitle.innerText = 'NON-CONFORME — RISQUE PÉNAL ARTICLE 49';
+          statusTitle.className = 'font-bold text-base text-rose-400';
+          statusDesc.innerText = `Score insuffisant (${scorePercent}%) ou violation des exigences de souveraineté (${criticalBlockers.join(', ')}). Pour une ${maxLevel === 4 ? "Infrastructure d'Importance Vitale" : "Système d'Information Sensible"}, toute mise en exploitation sans homologation expose aux sanctions pénales de la Loi 05-20.`;
+        } else {
+          statusTitle.innerText = 'NON-CONFORME — ÉCARTS DE SÉCURITÉ MAJEURS (SI Général)';
+          statusTitle.className = 'font-bold text-base text-rose-400';
+          statusDesc.innerText = `Score insuffisant (${scorePercent}%). Risques de compromission élevés. Mise en conformité recommandée avant validation opérationnelle.`;
+        }
+      }
+
+      // Populate Gaps Table
+      const gapsTbody = document.getElementById('gaps-table-body');
+      const gapsCountBadge = document.getElementById('gaps-count');
+
+      if (answeredCount === 0) {
+        gapsCountBadge.innerText = '0 Écarts Confirmés (28 Non Évalués)';
+        gapsCountBadge.className = 'text-xs font-mono text-neutral-400 bg-neutral-800 px-2 py-0.5 rounded border border-neutral-700';
+        gapsTbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-neutral-400 font-mono">Aucun contrôle renseigné pour l'instant. Démarrez l'audit ci-dessus en cochant "Conforme" ou "Non Conforme" pour chaque exigence DNSSI.</td></tr>`;
+      } else if (confirmedGaps.length === 0 && pendingQuestions.length === 0) {
+        gapsCountBadge.innerText = '0 Écarts Identifiés (100% Conforme)';
+        gapsCountBadge.className = 'text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20';
+        gapsTbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-emerald-400 font-mono">Félicitations : Aucun écart identifié. Le système est prêt pour le dépôt de dossier d'homologation DGSSI.</td></tr>`;
+      } else {
+        const displayList = confirmedGaps.length > 0 ? confirmedGaps : pendingQuestions;
+        gapsCountBadge.innerText = `${confirmedGaps.length} Écarts Confirmés (${pendingQuestions.length} En Attente)`;
+        gapsCountBadge.className = confirmedGaps.length > 0
+          ? 'text-xs font-mono text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20'
+          : 'text-xs font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20';
+
+        gapsTbody.innerHTML = displayList.map(g => {
+          const isConfirmed = answers[g.id] === false;
+          return `
+            <tr class="hover:bg-neutral-900/50">
+              <td class="py-3 px-3 font-mono text-[#C6FF3A]">#${g.id}</td>
+              <td class="py-3 px-3 text-neutral-300 font-medium">${g.chapterName}</td>
+              <td class="py-3 px-3 text-neutral-200">
+                ${g.title}
+                <span class="text-[10px] ml-1 font-mono px-1.5 py-0.5 rounded ${isConfirmed ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-neutral-800 text-neutral-400'}">
+                  ${isConfirmed ? 'Écart Confirmé' : 'À Évaluer'}
+                </span>
+              </td>
+              <td class="py-3 px-3 text-neutral-400 font-mono">${g.legal}</td>
+              <td class="py-3 px-3 text-neutral-300">${g.remediation}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    function exportMarkdownReport() {
+      const client = document.getElementById('client-name').value || "Organisme Client";
+      const system = document.getElementById('system-name').value || "Système d'Information";
+      const auditor = document.getElementById('auditor-name').value || "Direction SSI";
+      const score = document.getElementById('score-text').innerText;
+      const status = document.getElementById('status-title').innerText;
+      const qual = document.getElementById('system-qualification').innerText;
+      const classif = document.getElementById('classification-badge').innerText;
+      const now = new Date().toISOString().split('T')[0];
+      const safeSystem = (system || "Systeme_Information").replace(/[^a-zA-Z0-9_-]/g, '_');
+
+      let md = `# RAPPORT D'AUTO-ÉVALUATION DNSSI 2023 & PLAN D'HOMOLOGATION (ARTICLE 19)\n`;
+      md += `**Date :** ${now} | **Autorité Technique :** VEXT Casablanca (vext.ma)\n`;
+      md += `**Organisme :** ${client} | **Système d'Information :** ${system}\n`;
+      md += `**Évaluateur :** ${auditor} | **Classification :** ${classif} (${qual})\n`;
+      md += `**Score de Conformité DNSSI :** ${score} | **Décision Prédictive :** ${status}\n\n`;
+      md += `---\n\n`;
+      md += `## 1. Synthèse Réglementaire (Loi n° 05-20 & Décret n° 2-21-406)\n`;
+      md += `Conformément à l'Article 19 de la Loi n° 05-20 relative à la cybersécurité, les systèmes d'information sensibles doivent faire l'objet d'une décision formelle d'homologation de sécurité avant toute mise en exploitation.\n\n`;
+      md += `## 2. Tableau Détaillé des Écarts & Plan d'Action Recommandé\n\n`;
+      md += `| Réf | Chapitre DNSSI | Contrôle Manquant | Base Légale | Recommandation VEXT-CERT |\n`;
+      md += `|---|---|---|---|---|\n`;
+
+      DNSSI_QUESTIONS.forEach(q => {
+        if (answers[q.id] !== true) {
+          const st = answers[q.id] === false ? "ÉCART NON-CONFORME" : "NON ÉVALUÉ";
+          md += `| #${q.id} | ${q.chapterName} | ${q.title} (${st}) | ${q.legal} | ${q.remediation} |\n`;
+        }
+      });
+
+      md += `\n---\n`;
+      md += `## 3. Contact & Accompagnement PASSI VEXT\n`;
+      md += `Pour valider ce dossier d'homologation par un audit certifié et recevable par la DGSSI, contactez :\n`;
+      md += `- **Centre Opérationnel :** VEXT-CERT Casablanca\n`;
+      md += `- **Courriel :** cert@vext.ma / audit@vext.ma\n`;
+      md += `- **Site officiel :** https://vext.ma\n`;
+      md += `- **Portail de Vérification Cryptographique :** https://vext.ma/verify-audit.html\n`;
+
+      const blob = new Blob([md], { type: 'text/markdown;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `VEXT_DNSSI_Homologation_${safeSystem}_${now}.md`;
+      link.click();
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      renderQuestions();
+      calculateScore();
+    });
+  </script>
+</body>
+</html>

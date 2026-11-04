@@ -1,0 +1,28 @@
+name: CI Test Suite
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Validate Bash Script Syntax
+        run: |
+          bash -n vext_dnssi_linux_hardener.sh
+          echo "Bash syntax valid."
+
+      - name: Run Dry-Run Audit Test
+        run: |
+          sudo ./vext_dnssi_linux_hardener.sh
+          echo "Audit mode executed successfully."
+
+      - name: Validate XML Profile Syntax
+        run: |
+          python3 -c "import xml.etree.ElementTree as ET; ET.parse('dnssi_scap_profile.xml'); print('SCAP XML syntax valid.')"

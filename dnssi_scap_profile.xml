@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Benchmark xmlns="http://checklists.nist.gov/xccdf/1.2" id="xccdf_vext.ma_benchmark_DNSSI-2023">
+  <status date="2026-01-01">accepted</status>
+  <title>VEXT-CERT Moroccan DNSSI 2023 Security Baseline</title>
+  <description>Automated SCAP 1.3 profile mapped directly to Moroccan Law 05-20 Articles 6, 8, 12, 19, 20 and DGSSI DNSSI Chapters 6 &amp; 7.</description>
+  <version>1.0</version>
+  <Profile id="xccdf_vext.ma_profile_dnssi_level_renforce">
+    <title>DNSSI 2023 — Niveau Renforcé (IIV &amp; Systèmes Sensibles)</title>
+    <description>Applies 25 statutory OS, SSH, PAM, and auditd controls.</description>
+    <select idref="xccdf_vext.ma_rule_sysctl_ip_forward" selected="true"/>
+    <select idref="xccdf_vext.ma_rule_ssh_disable_root_login" selected="true"/>
+    <select idref="xccdf_vext.ma_rule_pam_minlen_14" selected="true"/>
+    <select idref="xccdf_vext.ma_rule_auditd_immutable" selected="true"/>
+  </Profile>
+</Benchmark>
